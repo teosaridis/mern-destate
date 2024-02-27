@@ -8,4 +8,13 @@ npm i -D daisyui@latest
 cd.. (root)
 git init
 git add .
+git commit -m "intall React, Tailwind amd Daisyui"
+
+
+git remote add origin https://github.com/teosaridis/mern-blog.git
+git branch -M main
+git push -u origin main
+
+npm i react-router-dom
+
 
