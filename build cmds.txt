@@ -18,3 +18,10 @@ git push -u origin main
 npm i react-router-dom
 
 npm i react-icons
+
+
+in the root folder!!
+npm init -y
+npm i express
+kai gia na trexeis to server -> node api/index.js
+alla gia na kanei refresh mono tou npm i nodemon
