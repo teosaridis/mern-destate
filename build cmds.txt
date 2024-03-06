@@ -24,4 +24,7 @@ in the root folder!!
 npm init -y
 npm i express
 kai gia na trexeis to server -> node api/index.js
-alla gia na kanei refresh mono tou npm i nodemon
+alla gia na kanei refresh mono tou npm i nodemon kai prostheteis ta scripts
+npm i mongoose
+npm i dotenv
+npm i bcryptjs
