@@ -17,4 +17,4 @@ git push -u origin main
 
 npm i react-router-dom
 
-
+npm i react-icons
