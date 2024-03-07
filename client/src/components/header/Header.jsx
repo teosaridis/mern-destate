@@ -7,7 +7,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 export default function Header() {
   const path = useLocation().pathname;
   return (
-    <Navbar className="border-b-2">
+    <Navbar className="border-b-2 sticky">
       <Link
         to={"/"}
         className="text-sm self-center whitespace-nowrap sm:text-xl font-semibold"
