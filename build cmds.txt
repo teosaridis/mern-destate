@@ -28,3 +28,4 @@ alla gia na kanei refresh mono tou npm i nodemon kai prostheteis ta scripts
 npm i mongoose
 npm i dotenv
 npm i bcryptjs
+npm i jsonwebtoken
