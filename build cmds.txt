@@ -29,3 +29,9 @@ npm i mongoose
 npm i dotenv
 npm i bcryptjs
 npm i jsonwebtoken
+
+
+In the client directory
+npm install @reduxjs/toolkit
+npm install react-redux
+
