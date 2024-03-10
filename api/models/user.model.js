@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     profilePicture: {
       type: String,
-      default: "../assets/blank-profile.png",
+      default: "../../src/assets/blank-profile.png",
     },
   },
   { timestamps: true }
