@@ -36,5 +36,7 @@ npm install @reduxjs/toolkit
 npm install react-redux
 npm i redux-persist
 npm install firebase
+npm install --save react-circular-progressbar
+
 
 
