@@ -27,11 +27,13 @@ export default function DashProfile() {
     }
   };
   const uploadImage = async () => {
-    setimageFileUploadError(null);
     const storage = getStorage(app);
     const fileName = new Date().getTime() + imageFile.name;
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+    setimageFileUploadError(null);
+    
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -54,6 +56,7 @@ export default function DashProfile() {
       }
     );
   };
+  
   useEffect(() => {
     if (imageFile) {
       uploadImage();
@@ -80,7 +83,7 @@ export default function DashProfile() {
           {CircularProgressbar && (
             <CircularProgressbar
               value={imageFileUploadProgress || 0}
-              text={`${imageFileUploadProgress}%`}
+              text={imageFileUploadProgress && `${imageFileUploadProgress}%`}
               strokeWidth={5}
               styles={{
                 root: {

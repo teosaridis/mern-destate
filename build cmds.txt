@@ -39,4 +39,5 @@ npm install firebase
 npm install --save react-circular-progressbar
 
 
-
+in the root folder!!
+npm i cookie-parser
