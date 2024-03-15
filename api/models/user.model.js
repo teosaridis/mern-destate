@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "../../src/assets/blank-profile.png",
     },
+    isAdmin: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
