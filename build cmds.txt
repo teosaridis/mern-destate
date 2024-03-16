@@ -41,3 +41,7 @@ npm install --save react-circular-progressbar
 
 in the root folder!!
 npm i cookie-parser
+
+
+In the client directory
+npm install react-quill --save

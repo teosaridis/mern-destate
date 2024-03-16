@@ -6,6 +6,8 @@ import SignIn from "./pages/SignIn.jsx";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Footer from "./components/footer/Footer.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute.jsx";
+import CreatePost from "./pages/CreatePost.jsx";
 
 export default function App() {
   return (
@@ -17,6 +19,9 @@ export default function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route element={<OnlyAdminPrivateRoute />}>
+          <Route path="/createpost" element={<CreatePost />} />
         </Route>
       </Routes>
       <Footer />
