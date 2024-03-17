@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   return (
-    <Navbar className="border-b-2 sticky ">
+    <Navbar className="border-b-2 sticky z-50">
       <Link
         to={"/"}
         className="text-sm self-center whitespace-nowrap sm:text-xl font-semibold"
@@ -36,7 +36,7 @@ export default function Header() {
         </span>
         Blog
       </Link>
-      <div className="fex gap-2 ">
+      <div className="flex gap-2 ">
         <form>
           <TextInput
             type="text"
