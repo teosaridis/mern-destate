@@ -45,3 +45,5 @@ npm i cookie-parser
 
 In the client directory
 npm install react-quill --save
+npm install --save-dev tailwind-scrollbar
+
