@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   return (
-    <Navbar className="border-b-2 sticky">
+    <Navbar className="border-b-2 sticky ">
       <Link
         to={"/"}
         className="text-sm self-center whitespace-nowrap sm:text-xl font-semibold"
@@ -90,11 +90,7 @@ export default function Header() {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item
-              onClick={handleSignout}
-            >
-              Sign Out
-            </Dropdown.Item>
+            <Dropdown.Item onClick={handleSignout}>Sign Out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to={"/signin"}>
