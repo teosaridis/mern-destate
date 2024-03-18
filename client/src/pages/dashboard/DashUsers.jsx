@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FaCheck, FaTimes } from "react-icons/fa";
+import { FaCheck, FaFontAwesomeAlt, FaTimes } from "react-icons/fa";
 
 export default function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
@@ -40,7 +40,7 @@ export default function DashUsers() {
       const data = await res.json();
       if (res.ok) {
         setUsers((prev) => [...prev, ...data.users]);
-        if (data.posts.length < 3) {
+        if (data.posts.length < 9) {
           setShowMore(false);
         }
       }
@@ -49,7 +49,22 @@ export default function DashUsers() {
     }
   };
 
-  const handleDeleteUser = async () => {};
+  const handleDeleteUser = async () => {
+    try {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+        setShowModal(false);
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="table-auto mb-12 overflow-x-scroll md:mx-auto scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
@@ -57,7 +72,7 @@ export default function DashUsers() {
         <>
           <Table hoverable className="shadow-md">
             <Table.Head>
-              <Table.HeadCell>Date created</Table.HeadCell>
+              <Table.HeadCell>Created</Table.HeadCell>
               <Table.HeadCell>Image</Table.HeadCell>
               <Table.HeadCell>Username</Table.HeadCell>
               <Table.HeadCell>Email</Table.HeadCell>
@@ -89,7 +104,7 @@ export default function DashUsers() {
                   </Table.Cell>
                   {/* <Table.Cell>
                     <Link
-                      to={`/profile`}
+                      to={`/dashboard?tab=profile`}
                       className="text-teal-500 hover:underline"
                     >
                       <span>Edit</span>
@@ -133,7 +148,7 @@ export default function DashUsers() {
           <div className="text-center">
             <HiOutlineExclamationCircle className="h-14 w-14 mb-4 mx-auto" />
             <h3 className="mb-5 text-lg">
-              Are you sure you want to delete this post?
+              Are you sure you want to delete this user?
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={handleDeleteUser}>
