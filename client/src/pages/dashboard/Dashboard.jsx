@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import DashSidebar from "./DashSidebar";
 import DashProfile from "./DashProfile";
 import DashPosts from "./DashPosts";
+import DashUsers from "./DashUsers";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -25,6 +26,8 @@ export default function Dashboard() {
       {tab === "profile" && <DashProfile />}
       {/* posts...*/}
       {tab === "posts" && <DashPosts />}
+      {/* users...*/}
+      {tab === "users" && <DashUsers />}
     </div>
   );
 }
