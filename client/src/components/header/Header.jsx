@@ -1,15 +1,28 @@
-import React from "react";
+import { useEffect, useState } from "react";
 
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { signoutSuccess } from "../../redux/user/userSlice";
 
 export default function Header() {
   const path = useLocation().pathname;
-  const { currentUser } = useSelector((state) => state.user);
+  const location = useLocation();
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
+  // const {theme}=useSelector((state)=>state.theme)
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchterm");
+
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
   const handleSignout = async () => {
     try {
@@ -25,6 +38,15 @@ export default function Header() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <Navbar className="border-b-2 sticky z-50">
       <Link
@@ -37,12 +59,14 @@ export default function Header() {
         Blog
       </Link>
       <div className="flex gap-2 ">
-        <form>
+        <form onSubmit={handleSubmit}>
           <TextInput
             type="text"
             placeholder="Search..."
             rightIcon={AiOutlineSearch}
             className="hidden lg:inline"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
 
@@ -50,26 +74,6 @@ export default function Header() {
           <AiOutlineSearch />
         </Button>
       </div>{" "}
-      <Navbar.Toggle />
-      <Navbar.Collapse>
-        <Navbar.Link as={"div"}>
-          <Link to={"/"}>Home</Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === "/cryptos"} as={"div"}>
-          <Link to={"/"}>Cryptos</Link>
-        </Navbar.Link>
-        <Navbar.Link as={"div"}>
-          <Link to={"/"}>About</Link>
-        </Navbar.Link>
-
-        <Dropdown arrowIcon={true} inline label={"Services"}>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
-        </Dropdown>
-      </Navbar.Collapse>
       <div className="flex gap-2 md:order-2">
         {currentUser ? (
           <Dropdown
@@ -98,6 +102,27 @@ export default function Header() {
           </Link>
         )}
       </div>
+      <Navbar.Toggle />
+      <Navbar.Collapse>
+        <Navbar.Link as={"div"}>
+          <Link to={"/"}>Home</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === "/cryptos"} as={"div"}>
+          <Link to={"/"}>Cryptos</Link>
+        </Navbar.Link>
+        <Navbar.Link as={"div"}>
+          <Link to={"/"}>About</Link>
+        </Navbar.Link>
+        <Navbar.Link as={"div"}>
+          <Dropdown arrowIcon={true} inline label={"Services"}>
+            <Dropdown.Item>Dashboard</Dropdown.Item>
+            <Dropdown.Item>Settings</Dropdown.Item>
+            <Dropdown.Item>Earnings</Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>Sign out</Dropdown.Item>
+          </Dropdown>
+        </Navbar.Link>
+      </Navbar.Collapse>
     </Navbar>
   );
 }
