@@ -152,7 +152,7 @@ export default function Search() {
             posts.map((post) => <PostCard key={post._id} post={post} />)}
         </div>
         {!loading && posts && (
-          <div className="p-7 gap-4 text-center">
+          <div className="p-7 gap-4 text-center items-center justify-center">
             {showMore && (
               <button
                 onClick={handleShowMore}
