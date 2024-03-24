@@ -7,10 +7,10 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
     content: {
-      type: Object,
+      type: String,
       required: true,
     },
-    
+
     title: {
       type: String,
       required: true,
