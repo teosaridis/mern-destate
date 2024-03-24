@@ -23,12 +23,12 @@ export default function CreatePost() {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
   const navigate = useNavigate();
+  const [uploadedUrl, setUploadedUrl] = useState("");
 
   console.log(formData);
 
+  console.log(uploadedUrl);
   // *******************************
-
-  const [value, setValue] = useState("");
 
   const { quill, quillRef, Quill } = useQuill({
     modules: {
@@ -80,10 +80,13 @@ export default function CreatePost() {
         let currrentContents = quill.getContents();
         // console.log(currrentContents);
         // console.log(currrentContents.diff(oldContents));
+        console.log(quill.root.innerHTML);
 
         setFormData({
-          ...formData,
           content: quill.root.innerHTML,
+          title: titleField.value,
+          category: categoryField.value,
+          image: uploadedUrl,
         });
       });
     }
@@ -98,6 +101,7 @@ export default function CreatePost() {
         return;
       }
       setimageUploadError(null);
+
       const storage = getStorage(app);
       const fileName = new Date().getTime() + "-" + file.name;
       const storageRef = ref(storage, fileName);
@@ -120,15 +124,17 @@ export default function CreatePost() {
             setimageUploadProgress(null);
             setimageUploadError(null);
             setFormData({ ...formData, image: downloadURL });
+            setUploadedUrl(downloadURL);
           });
         }
       );
     } catch (error) {
-      setimageUploadError("Image upload faield!");
+      setimageUploadError("Image upload failed!");
       setimageUploadProgress(null);
       console.log(error);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -178,16 +184,14 @@ export default function CreatePost() {
             onChange={(e) => {
               setFormData({ ...formData, title: e.target.value });
             }}
-            // onChange={(e) => {
-            //   setFormData({ ...formData, title: e.target.value });
-            // }}
             type="text"
             placeholder="Title"
             required
-            id="title"
+            id="titleField"
             className="flex-1"
           />
           <Select
+            id="categoryField"
             onChange={(e) => {
               setFormData({ ...formData, category: e.target.value });
             }}
@@ -199,6 +203,7 @@ export default function CreatePost() {
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-dotted p-3">
           <FileInput
+            id="imageField"
             type="button"
             accept="image/*"
             onChange={(e) => setFile(e.target.files[0])}
@@ -224,9 +229,9 @@ export default function CreatePost() {
         {imageUploadError && (
           <Alert color={"failure"}>{imageUploadError}</Alert>
         )}
-        {formData.image && (
+        {(formData.image || uploadedUrl) && (
           <img
-            src={formData.image}
+            src={formData.image || uploadedUrl}
             alt="upload"
             className="w-full h-72 object-cover"
           />
