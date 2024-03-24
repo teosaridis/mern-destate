@@ -47,6 +47,11 @@ In the client directory
 npm install react-quill --save
 npm install --save-dev tailwind-scrollbar
 npm i moment
+npm i quill-image-resize-module
+npm i quill-image-resize-module-react
+npm i react-quilljs
+npm i quill-blot-formatter
+
 
 
 

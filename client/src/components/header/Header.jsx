@@ -48,7 +48,7 @@ export default function Header() {
   };
 
   return (
-    <Navbar className="border-b-2 sticky z-50">
+    <Navbar className="border-b-2 fixed z-50 w-full">
       <Link
         to={"/"}
         className="text-sm self-center whitespace-nowrap sm:text-xl font-semibold"

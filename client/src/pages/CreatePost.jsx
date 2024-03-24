@@ -1,7 +1,5 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { useEffect, useRef, useState } from "react";
 import {
   getDownloadURL,
   getStorage,
@@ -13,6 +11,11 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import BlotFormatter from "quill-blot-formatter";
+import { useQuill } from "react-quilljs";
+
 export default function CreatePost() {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setimageUploadProgress] = useState(null);
@@ -22,6 +25,71 @@ export default function CreatePost() {
   const navigate = useNavigate();
 
   console.log(formData);
+
+  // *******************************
+
+  const [value, setValue] = useState("");
+
+  const { quill, quillRef, Quill } = useQuill({
+    modules: {
+      blotFormatter: {},
+
+      toolbar: {
+        container: [
+          [{ header: "1" }, { header: "2" }, { font: [] }],
+          [{ size: [] }],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+          ],
+          ["link", "image", "video"],
+          ["code-block"],
+          ["clean"],
+        ],
+      },
+    },
+    formats: [
+      "header",
+      "font",
+      "size",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "blockquote",
+      "list",
+      "bullet",
+      "indent",
+      "link",
+      "image",
+      "video",
+      "code-block",
+    ],
+  });
+
+  if (Quill && !quill) {
+    Quill.register("modules/blotFormatter", BlotFormatter);
+  }
+
+  useEffect(() => {
+    if (quill) {
+      quill.on("text-change", (delta, oldContents) => {
+        let currrentContents = quill.getContents();
+        // console.log(currrentContents);
+        // console.log(currrentContents.diff(oldContents));
+
+        setFormData({
+          ...formData,
+          content: quill.root.innerHTML,
+        });
+      });
+    }
+  }, [quill, Quill]);
+
+  // ************************************************
 
   const handleUploadImage = async () => {
     try {
@@ -87,6 +155,20 @@ export default function CreatePost() {
       setPublishError("Something went wrong!");
     }
   };
+
+  const handleTitleChange = (userTitle) => {
+    const newSlug = userTitle
+      .toLowerCase() // Convert the title to lowercase
+      .replace(/\s+/g, "-") // Replace spaces with dashes
+      .replace(/[^\w\-]+/g, "") // Remove non-word characters except dashes
+      .replace(/\-\-+/g, "-") // Replace multiple consecutive dashes with a single dash
+      .replace(/^\-+/, "") // Remove dashes from the beginning
+      .replace(/\-+$/, ""); // Remove dashes from the end
+
+    //  setFormData({ ...formData, title: userTitle });
+    setFormData({ ...formData, title: newSlug });
+  };
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Create a post</h1>
@@ -96,6 +178,9 @@ export default function CreatePost() {
             onChange={(e) => {
               setFormData({ ...formData, title: e.target.value });
             }}
+            // onChange={(e) => {
+            //   setFormData({ ...formData, title: e.target.value });
+            // }}
             type="text"
             placeholder="Title"
             required
@@ -112,7 +197,6 @@ export default function CreatePost() {
             <option value={"react"}>React.js</option>
           </Select>
         </div>
-
         <div className="flex gap-4 items-center justify-between border-4 border-dotted p-3">
           <FileInput
             type="button"
@@ -147,15 +231,11 @@ export default function CreatePost() {
             className="w-full h-72 object-cover"
           />
         )}
-        <ReactQuill
-          theme="snow"
-          placeholder="Write something..."
-          className="h-72 mb-8"
-          required
-          onChange={(value) => {
-            setFormData({ ...formData, content: value });
-          }}
-        />
+        {/* ************************************************** */}
+        <div>
+          <div ref={quillRef} />
+        </div>
+        {/* ************************************************** */}
         <Button type="submit" className="w-1/2 self-center">
           Publish
         </Button>

@@ -9,10 +9,12 @@ export const createPost = async (req, res, next) => {
     return next(errorHandler(400, "Please provide all required fields!"));
   }
   const slug = req.body.title
-    .split(" ")
-    .join("-")
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9]/g, " ");
+    .toLowerCase() // Convert the title to lowercase
+    .replace(/\s+/g, "-") // Replace spaces with dashes
+    .replace(/[^\w\-]+/g, "") // Remove non-word characters except dashes
+    .replace(/\-\-+/g, "-") // Replace multiple consecutive dashes with a single dash
+    .replace(/^\-+/, "") // Remove dashes from the beginning
+    .replace(/\-+$/, ""); // Remove dashes from the end
 
   const newPost = new Post({
     ...req.body,
