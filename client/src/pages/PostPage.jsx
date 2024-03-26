@@ -59,7 +59,7 @@ export default function PostPage() {
     );
   return (
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen mb-24">
-      <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
+      <h1 className="text-3xl p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
         {post && post.title}
       </h1>
 
@@ -75,7 +75,7 @@ export default function PostPage() {
       <img
         src={post && post.image}
         alt={post && post.title}
-        className="mt-10 p-3 max-h-[600px] w-full object-cover"
+        className="p-3 max-h-[600px] w-full object-cover self-center"
       />
       <div className="flex justify-between p-2 border-b border-slate-400 mx-auto w-full max-w-2xl text-xs ">
         <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>

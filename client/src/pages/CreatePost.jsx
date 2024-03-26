@@ -25,11 +25,6 @@ export default function CreatePost() {
   const navigate = useNavigate();
   const [uploadedUrl, setUploadedUrl] = useState("");
 
-  console.log(formData);
-
-  console.log(uploadedUrl);
-  // *******************************
-
   const { quill, quillRef, Quill } = useQuill({
     modules: {
       blotFormatter: {},
@@ -80,7 +75,7 @@ export default function CreatePost() {
         let currrentContents = quill.getContents();
         // console.log(currrentContents);
         // console.log(currrentContents.diff(oldContents));
-        console.log(quill.root.innerHTML);
+        //  console.log(quill.root.innerHTML);
 
         setFormData({
           content: quill.root.innerHTML,
