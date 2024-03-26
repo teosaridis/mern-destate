@@ -149,7 +149,9 @@ export default function Search() {
           {loading && <p className="text-xl text-gray-500">Loading...</p>}
           {!loading &&
             posts &&
-            posts.map((post) => <PostCard key={post._id} post={post} />)}
+            posts.map((post) => <PostCard key={post._id} post={post} />)
+            
+            }
         </div>
         {!loading && posts && (
           <div className="p-7 gap-4 text-center items-center justify-center">

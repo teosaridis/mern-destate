@@ -73,8 +73,13 @@ export default function PostPage() {
       </Link>
 
       <img
-        src={post && post.image}
-        alt={post && post.title}
+        src={
+          post &&
+          (post.image
+            ? post.image
+            : "../src/assets/common/default-post-photo.jpg")
+        }
+        alt={post && "post photo"}
         className="p-3 max-h-[600px] w-full object-cover self-center"
       />
       <div className="flex justify-between p-2 border-b border-slate-400 mx-auto w-full max-w-2xl text-xs ">
