@@ -1,0 +1,27 @@
+[
+  {
+    "catId": 0,
+    "catName": "Select a Category",
+    "catTitle": "Uncategorised"
+  },
+  {
+    "catId": 1,
+    "catName": "Exchange",
+    "catTitle": "Exchange"
+  },
+  {
+    "catId": 2,
+    "catName": "Wallet",
+    "catTitle": "Wallet"
+  },
+  {
+    "catId": 3,
+    "catName": "Broker",
+    "catTitle": "Broker"
+  },
+  {
+    "catId": 4,
+    "catName": "Crypto Faucet",
+    "catTitle": "Faucet"
+  }
+]

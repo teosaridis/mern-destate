@@ -44,6 +44,14 @@ export default function DashSidebar() {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col">
+          {currentUser && currentUser.isAdmin && (
+            <Link to="/dashboard?tab=dash">
+              <Sidebar.Item active={tab === "dash" || !tab} icon={HiChartPie}>
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
+
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}
@@ -55,14 +63,8 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
-          {currentUser && currentUser.isAdmin && (
+          {currentUser.isAdmin && (
             <>
-              <Link to="/dashboard?tab=dash">
-                <Sidebar.Item active={tab === "dash" || !tab} icon={HiChartPie}>
-                  Dashboard
-                </Sidebar.Item>
-              </Link>
-
               <Link to="/dashboard?tab=users">
                 <Sidebar.Item
                   active={tab === "users"}
@@ -73,34 +75,25 @@ export default function DashSidebar() {
                 </Sidebar.Item>
               </Link>
 
-              <Sidebar.Collapse label="Posts" icon={HiDocumentText}>
-                <Link to="/dashboard?tab=createpost">
-                  <Sidebar.Item active={tab === "createposts"} as="div">
-                    Create Post
-                  </Sidebar.Item>
-                </Link>
-                <Link to="/dashboard?tab=posts">
-                  <Sidebar.Item active={tab === "posts"} as="div">
-                    View Posts
-                  </Sidebar.Item>
-                </Link>
+              <Link to="/dashboard?tab=posts">
+                <Sidebar.Item
+                  active={tab === "posts"}
+                  icon={HiDocumentText}
+                  as="div"
+                >
+                  Posts
+                </Sidebar.Item>
+              </Link>
 
-                <Link to="/dashboard?tab=comments">
-                  <Sidebar.Item active={tab === "comments"} as="div">
-                    View Comments
-                  </Sidebar.Item>
-                </Link>
-              </Sidebar.Collapse>
-
-              <Sidebar.Collapse label="Links" icon={HiAnnotation}>
-                <Link to="/dashboard?tab=createmylink">
-                  <Sidebar.Item active={tab === "createmylink"} as="div">
-                    Create Link
-                  </Sidebar.Item>
-                </Link>
-
-                <Sidebar.Item href="#">View all Links</Sidebar.Item>
-              </Sidebar.Collapse>
+              <Link to="/dashboard?tab=comments">
+                <Sidebar.Item
+                  active={tab === "comments"}
+                  icon={HiAnnotation}
+                  as="div"
+                >
+                  Comments
+                </Sidebar.Item>
+              </Link>
             </>
           )}
 

@@ -12,12 +12,14 @@ import UpdatePost from "./pages/UpdatePost.jsx";
 import PostPage from "./pages/PostPage.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Search from "./pages/Search.jsx";
+import CreateMyLink from "./pages/mylinks/CreateMyLink.jsx";
 
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Header />
+
       <div className="pt-16">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -32,6 +34,7 @@ export default function App() {
             <Route path="/update-post/:postId" element={<UpdatePost />} />
           </Route>
           <Route path="/post/:postSlug" element={<PostPage />} />
+          <Route path="/createmylink" element={<CreateMyLink />} />
         </Routes>
       </div>
       <Footer />

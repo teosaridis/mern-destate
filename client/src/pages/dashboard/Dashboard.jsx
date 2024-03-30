@@ -6,10 +6,13 @@ import DashPosts from "./DashPosts";
 import DashUsers from "./DashUsers";
 import DashComments from "./DashComments";
 import DashIndex from "./DashIndex";
+import CreateMyLink from "../mylinks/CreateMyLink";
+import CreatePost from "../CreatePost";
 
 export default function Dashboard() {
   const location = useLocation();
   const [tab, setTab] = useState("");
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get("tab");
@@ -24,6 +27,7 @@ export default function Dashboard() {
         {/* Sidebar */}
         <DashSidebar />
       </div>
+
       {/* users...*/}
       {tab === "dash" && <DashIndex />}
       {/* profile...*/}
@@ -34,6 +38,9 @@ export default function Dashboard() {
       {tab === "users" && <DashUsers />}
       {/* users...*/}
       {tab === "comments" && <DashComments />}
+
+      {tab === "createpost" && <CreatePost />}
+      {tab === "createmylink" && <CreateMyLink />}
     </div>
   );
 }
